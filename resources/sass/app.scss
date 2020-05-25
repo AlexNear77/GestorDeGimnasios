@@ -1,1 +1,14 @@
-//
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+
+// Variables
+@import 'variables';
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+
+.h-creen{
+   //para que utilize el alto, cualquier elemento que lo utlize 
+   height: 100vh;
+}
+

@@ -47,7 +47,7 @@ class FormularioContactController extends Controller
         //Enviar email
         Mail::to('jonathan.gomez2943@alumnos.udg.mx')->queue(new MessageReceived($mensaje));
         //return new MessageReceived($mensaje) ;
-        return 'mensaje enviado';
+        return back()->with('status',__('Your message sent successfully'));
     }
 
     /**
