@@ -91,12 +91,14 @@
                               href="{{route('gyms.edit',$gym)}}">
                            Editar
                         </a>
+                        @if (auth()->user()->gymActivo_id == $gym->id )
+                        @else
                        <a  href="#" 
                            class="btn btn-danger"
                            onclick="document.getElementById('delete-gym').submit()">
                          Eliminar
                        </a>
-
+                       @endif
                        {{--            Form para eliminar cliente            --}}
                        <form id="delete-gym" 
                        action="{{route('gyms.destroy', $gym)}}" method="post" class="d-none">
