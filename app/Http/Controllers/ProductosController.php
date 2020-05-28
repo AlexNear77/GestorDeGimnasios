@@ -19,10 +19,14 @@ class ProductosController extends Controller
     {
         $categorias = Categoria::all();
         //$portfolio = Proyect::orderBy('created_at','DESC')->get(); una forma de ordenar de maner ascendete pero....
-
         //$productos = Producto::latest()->paginate();//si no colocamos nada en lasted en automatic lo rodena de manera descendete, con paginate hace paginas pero tambien debemos agregar algo ala vista cosa que ahi esta por si las moscas
+        
+        $gymId = auth()->user()->gymActivo_id; // Obtenemos el gym activo
+        
         return view('productos.index', [
-            'productos' => Producto::latest()->paginate(),
+            'productos' => Producto::orderBy('description','DESC')
+                ->gymId($gymId)
+                ->paginate(),
             'categorias' => $categorias
         ]);
     }
@@ -47,13 +51,15 @@ class ProductosController extends Controller
         //     'sale' => 'required'
         // ]);
         
-        Producto::create($request->validated()); // esto para evitar inyecciones
-        
+        $producto = Producto::create($request->validated()); // esto para evitar inyecciones
+        $producto->gym_id = auth()->user()->gymActivo_id;// le agregamos el gym id activo
+        $producto->save(); // Guardamos
+
         return redirect()->route('productos.index')->with('status',__('Product was successfully added'));
 
     }
 
-
+    // No lo utilizamos
     public function show(Producto $producto)
     {
         //$proyect = Proyect::findOrFail($id); // devuelve un json y si intentan acceder con un id que no existe OrFail fallara la consulta NOT FOUND
@@ -77,7 +83,7 @@ class ProductosController extends Controller
     {
         $producto->update($request->validated()); //Usamos la misma validacion de SaveProductoRequest
 
-        return redirect()->route('productos.show', $producto)->with('status',__('Updated successfully'));
+        return redirect()->route('productos.index', $producto)->with('status',__('Updated successfully'));
     }
 
 
@@ -86,4 +92,5 @@ class ProductosController extends Controller
         $producto->delete();
         return redirect()->route('productos.index')->with('status',__('Deleted successfully'));
     }
+
 }

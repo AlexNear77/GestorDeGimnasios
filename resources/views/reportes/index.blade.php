@@ -1,6 +1,6 @@
 @extends('layouts.layoutMenu')
 
-@section('title','Usuarios')
+@section('title','Clientes')
 
 @section('content')
 <div class="container-fluid p-4">
@@ -8,17 +8,14 @@
      <div class="col-md-12">
        <div class="card border-primary mb-3 card-plain">
          <div class="card-header card-header-primary text-white bg-primary mb-3">
-           <h1 class="card-title mt-0">Tabla de usuarios</h1>
+           <h1 class="card-title mt-0">Tabla de Reportes</h1>
            <div class="d-flex justify-content-between">
-             <p class="card-category"> Lista de todo los usuarios del gimnasio</p>
+             <p class="card-category"> Lista de todo las ventas del gimnasio</p>
              
            </div>
          </div>
-         {{--                   Comienzo de tabla      --}}
-         <div class="ml-auto pr-3">
-           {{--                   Botton agregar producto      --}}
-           <a class="btn btn-primary pb-2" href="{{ route('usuarios.create')}}">Registrar usuario</a>
-         </div>
+
+
          {{--                              Lista            --}}
          <div class="card-body">
            <div class="table-responsive">
@@ -28,72 +25,65 @@
                    ID
                  </th>
                  <th>
-                   Nombre
+                   Cliente o producto
                  </th>
                  <th>
-                   Correo
+                   Pago
                  </th>
                  <th class="text-center">
-                   Tipo de usuario
+                   Fecha de registro
                  </th>
-                 <th class="text-center">
-                    Gimnasio
-                </th>
+                 @if (auth()->user()->hasRoles('admin'))
+                     
                  <th class="text-center">
                     Acciones
                   </th>
+                 @endif
                </thead>
                <tbody>
-                 @forelse ($usuarios as $usuario)
+                 @forelse ($reportes as $reporte)
                  <tr>
                    {{--                      ID                     --}}
                    <td>
-                     {{ $usuario->id}}
+                     {{ $reporte->id}}
                    </td>
-                   {{--                      Nombre                     --}}
+                   {{--                      nombre                     --}}
                    <td>
-                     {{$usuario->name}}
+                     {{$reporte->nombre}}
                    </td>
-                   {{--                      Correo                     --}}
+                   {{--                      pago                     --}}
                    <td>
-                     {{$usuario->email}}
+                     ${{$reporte->pago}}
                    </td>
-                   {{--                      Role                     --}}
+                   {{--                      facha de reporte                     --}}
                    <td class="text-center">
-                     {{$usuario->role}}
+                     {{$reporte->created_at}}
                    </td>
-                   {{--                      gym                     --}}
-                   <td class="text-center">
-                     {{$usuario->gyms->pluck('nombre')->implode(', ')}}
-                    {{-- @foreach ($usuario->gyms as $gym)
-                      {{$gym->nombre}}  
-                    @endforeach --}}
-                   </td>
+                   @if (auth()->user()->hasRoles('admin'))
+                       
                    <td class="text-center">
                      {{--                  Botonos de eliminar                --}}
                      <div class="btn-group btn-group-sm">
-                       <a class="btn btn-secondary" href="{{route('usuarios.edit',$usuario)}}">
-                         Editar
-                       </a>
                        <a  href="#" 
                            class="btn btn-danger"
-                           onclick="document.getElementById('delete-usuario').submit()">
+                           onclick="document.getElementById('delete-reporte').submit()">
                          Eliminar
                        </a>
-                         
+
                      </div>
                      {{--            Form para eliminar cliente            --}}
-                     <form id="delete-usuario" action="{{route('usuarios.destroy', $usuario)}}" method="post" class="d-none">
+                     <form id="delete-reporte" action="{{route('reportes.destroy', $reporte)}}" method="post" class="d-none">
                         @csrf @method('DELETE')
  
                      </form>
                    </td>
-                 </tr>
+                   @endif
+                  </tr>
                  @empty
-                   No hay usuarios por el momento.
+                   No hay Reportes por el momento.
                  @endforelse
                    {{-- el metod links es para hacer una paginacion dependiendo de lo que queramos  --}}
-                   {{ $usuarios->links()}}
+                   {{ $reportes->links()}}
                </tbody>
              </table>
            </div>

@@ -22,10 +22,8 @@
       <header class="page-header">
          @include('partials.navMenu')
       </header>
-      <section class="page-content">
-         @include('partials.sectionMenu')
-      </section>
-      <main >
+      @include('partials.sectionMenu')
+      <main class="page-content ">
          @include('partials.mensajesStatus')
          @yield('content')
       </main>

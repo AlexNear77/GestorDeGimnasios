@@ -1,4 +1,4 @@
-@extends('layouts.layout')
+@extends('layouts.layoutMenu')
 
 @section('title','Productos')
 
@@ -15,11 +15,21 @@
             
           </div>
         </div>
-        {{--                   Comienzo de tabla      --}}
-        <div class="ml-auto pr-3">
-          {{--                   Botton agregar producto      --}}
+
+        <div class="d-flex justify-content-between pl-3 pr-3">
+          {{--                   Registrar pago             --}}
+          @if (count($productos) == 0)
+          @else
+          <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModalCenter">
+            Registrar Pago
+          </button>
+          @endif
+          {{--                        agregar producto      --}}
           <a class="btn btn-primary pb-2" href="{{ route('productos.create')}}">Agregar producto</a>
+          
+
         </div>
+          
         {{--                              Lista            --}}
         <div class="card-body">
           <div class="table-responsive">
@@ -105,6 +115,51 @@
             </table>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{{--                      MODA  L                    --}}
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="{{route('reportes.store')}}" method="POST">
+          @csrf
+          {{--              Seleccionar producto       --}}
+          <div class="form-group">
+            <label for="producto">Producto</label>
+            <select class="form-control bg-light shadow-sm border-0"
+                     name="producto" aria-placeholder="seleciona un producto">
+                     @foreach ($productos as $producto)
+                     <option value="{{$producto->description}}" >
+                        @if ($producto->stock != '0')
+                          {{$producto->description}}
+                        @endif
+                     </option>
+                     @endforeach
+            </select>
+         </div>
+         {{--         monto         --}}
+         <div class="form-group">
+          <label for="monto">Monto</label>
+          <input type="number" name="monto" class="form-control bg-light shadow-sm border-0 "
+             placeholder="Ingresa el monto a pagar" > 
+          
+          </div>
+          
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            <button type="submit" class="btn btn-primary">Registrar Pago</button>
+          </div>
+        </form>
       </div>
     </div>
   </div>

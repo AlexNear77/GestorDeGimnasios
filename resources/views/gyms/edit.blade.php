@@ -8,14 +8,14 @@
       <div class="col-12 col-sm-12 col-lg-7 mx-auto">
          @include('partials.validacionErrores')
          
-         <form class="bg-white shadow rounded py-3 px-4" action="{{route('productos.update',$producto)}}" method="POST">
+         <form class="bg-white shadow rounded py-3 px-4" action="{{route('gyms.update',$gym)}}" method="POST" enctype="multipart/form-data">
             {{-- Larabel nos proporciona una directiva de blade que genera el campo oculto para hacer la peticion. --}}
             @method('PATCH') 
             {{--              TEXTO EDITAR PORDUCTO     --}}
-            <h1 class="display-4 text-center">@lang('Edit product')</h1>
+            <h1 class="display-4 text-center">Actualizar datos</h1>
             <hr class="my-4">
             {{--                FORMULARIO                --}}
-            @include('productos.formulario',['btnForm' => 'Editar'])
+            @include('gyms.formulario',['btnForm' => 'Actualizar'])
 
          </form>
       </div>

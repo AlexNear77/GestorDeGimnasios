@@ -12,4 +12,13 @@ class Producto extends Model
     // public function getRouteKeyName(){ // esta funcion se utiliza para que en vez de colocar el id el producto coloque el url
     //     return 'url';
     // }
+
+    //Query scope
+    public function scopeGymId($query, $gymId)
+    {
+        if($gymId)
+        {
+            return $query->where('gym_id', 'LIKE', "%$gymId%");
+        }
+    }
 }

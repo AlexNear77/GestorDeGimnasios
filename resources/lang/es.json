@@ -10,7 +10,9 @@
    "Product was successfully added": "Se agrego el producto satisfactoriamente",
    "Updated successfully":"Actualizado correctamente",
    "Deleted successfully":"Eliminado correctamente", 
-
+   "Update":"Actualizar",
+   "Type":"Tipo",
+   "E-Mail":"Correo",
 
 
    "A fresh verification link has been sent to your email address.": "Se ha enviado un nuevo enlace de verificación a su correo electrónico.",

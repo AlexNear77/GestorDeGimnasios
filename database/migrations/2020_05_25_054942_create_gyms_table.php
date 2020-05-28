@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateClientesTable extends Migration
+class CreateGymsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,13 @@ class CreateClientesTable extends Migration
      */
     public function up()
     {
-        Schema::create('clientes', function (Blueprint $table) {
+        Schema::create('gyms', function (Blueprint $table) {
             $table->id();
+            $table->string('key')->unique();
             $table->string('nombre');
-            $table->string('folio');
-            $table->integer('pago');
-            $table->integer('gym_id')->nullable();
-            $table->date('fecha_inicio');
-            $table->date('fecha_vencimiento');
+            $table->text('img');
+            $table->string('ubicacion')->nullable();
+            $table->float('ganancias', 8, 2)->nullable();
             $table->timestamps();
         });
     }
@@ -32,6 +31,6 @@ class CreateClientesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('clientes');
+        Schema::dropIfExists('gyms');
     }
 }

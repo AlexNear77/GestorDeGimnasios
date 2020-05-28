@@ -19,8 +19,9 @@ class SaveClienteRequest extends FormRequest
         return [
             'nombre' => 'required',
             'folio' => 'required',
-            'fecha_inicio' => 'required',
-            'fecha_vencimiento' => 'required',
+            'fecha_inicio' => 'required|date_format:Y-m-d',
+            'fecha_vencimiento' => 'required|date_format:Y-m-d',
+            'pago' => 'required|integer',
         ];
     }
 }

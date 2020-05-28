@@ -21,6 +21,7 @@ class CreateProductosTable extends Migration
             $table->integer('stock');
             $table->integer('buy');
             $table->integer('sale');
+            $table->integer('gym_id')->nullable();
             //$table->string('url')->unique();//lo utilizamos para hacer url amigables
             $table->timestamps();
         });

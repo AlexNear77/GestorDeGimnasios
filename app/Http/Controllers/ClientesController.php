@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Cliente;
 use Illuminate\Http\Request;
-use App\Http\Requests\ClienteProductoRequest;
+use App\Http\Requests\SaveClienteRequest;
+
+use App\Reporte;
 
 class ClientesController extends Controller
 {
@@ -17,8 +19,11 @@ class ClientesController extends Controller
 
     public function index()
     {
+        $gymId = auth()->user()->gymActivo_id;
         return view('clientes.index', [
-            'clientes' => Cliente::latest()->paginate()
+            'clientes' => Cliente::orderBy('fecha_vencimiento','DESC')
+                ->gymId($gymId)
+                ->paginate()//latest()
         ]);
     }
 
@@ -31,14 +36,26 @@ class ClientesController extends Controller
     }
 
 
-    public function store(ClienteProductoRequest $request)
+    public function store(SaveClienteRequest $request)
     {
-        Cliente::create($request->validated()); // esto para evitar inyecciones
-        
-        return redirect()->route('clientes.index')->with('status',__('Product was successfully added'));
+        $cliente = Cliente::create($request->validated()); // esto para evitar inyecciones
+        $cliente->gym_id = auth()->user()->gymActivo_id;// le agregamos el gym id activo
+        $cliente->save(); // Guardamos
+
+        //===============================================================
+        //                          REPORTE
+        //----------------------------------------------------------------
+        $reporte = new Reporte();
+        $reporte->nombre = $request->nombre;
+        $reporte->pago = $request->pago;
+        $reporte->gym_id = auth()->user()->gymActivo_id;// le agregamos el gym id activo
+
+        $reporte->save();
+
+        return redirect()->route('clientes.index')->with('status','Cliente Agregado Satisfactoriamente');
     }
 
- 
+    // No lo utilizamos
     public function show(Cliente $cliente)
     {
         return view('clientes.show', [// Ah esto se le conoce como route model Binding
@@ -49,18 +66,30 @@ class ClientesController extends Controller
 
     public function edit(Cliente $cliente)
     {
-        $categorias = Categoria::all();
         return view('clientes.edit', [// Ah esto se le conoce como route model Binding
             'cliente' => $cliente 
         ]);
     }
 
 
-    public function update(ClienteProductoRequest $request, Cliente $cliente)
+    public function update(SaveClienteRequest $request, Cliente $cliente)
     {
         $cliente->update($request->validated()); //Usamos la misma validacion de SaveProductoRequest
 
-        return redirect()->route('clientes.show', $cliente)->with('status',__('Updated successfully'));
+        $request->validate([
+            'pago' => ['required', 'integer'],
+        ]);
+        //===============================================================
+        //                          REPORTE
+        //----------------------------------------------------------------
+        $reporte = new Reporte();
+        $reporte->nombre = $request->nombre;
+        $reporte->pago = $request->pago;
+        $reporte->gym_id = auth()->user()->gymActivo_id;// le agregamos el gym id activo
+
+        $reporte->save();
+
+        return redirect()->route('clientes.index', $cliente)->with('status',__('Updated successfully'));
     }
 
 

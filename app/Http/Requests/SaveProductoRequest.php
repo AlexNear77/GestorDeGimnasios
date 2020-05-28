@@ -17,8 +17,8 @@ class SaveProductoRequest extends FormRequest
     public function rules()
     {
         return [
-            'category_id' => 'required',
-            'description' => 'required',
+            'category_id' => 'required|string',
+            'description' => 'required|string',
             'stock' => 'required',
             'buy' => 'required',
             'sale' => 'required'

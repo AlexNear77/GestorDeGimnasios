@@ -51,28 +51,29 @@
                    <td>
                      {{ $cliente->id}}
                    </td>
-                   {{--                      Descripcion                     --}}
+                   {{--                      nombre                     --}}
                    <td>
                      {{$cliente->nombre}}
                    </td>
-                   {{--                      Categoria                     --}}
+                   {{--                      folio                     --}}
                    <td>
                      {{$cliente->folio}}
                    </td>
-                   {{--                      Stock                     --}}
+                   {{--                      facha inicio                     --}}
                    <td class="text-center">
                      {{$cliente->fecha_inicio}}
                    </td>
-                   {{--                      Precio compra                  --}}
+                   {{--                      fecha fin                  --}}
                    <td class="text-center">
                      {{$cliente->fecha_vencimiento}}
                    </td>
                    {{--                      Precio venta                     --}}
                    <td class="text-center">
-                      @if ($cliente->fecha_vencimiento >= now()->toDateTimeString('d-m-Y'))
+  
+                      @if ($cliente->fecha_vencimiento <= now())
                         <button type="button" class="btn btn-danger">Vencido</button>
                       @else
-                        <button type="button" class="btn btn-danger">Activo</button>
+                        <button type="button" class="btn btn-success">Activo</button>
                       @endif
                    </td>
                    <td class="text-center">

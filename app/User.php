@@ -10,34 +10,29 @@ class User extends Authenticatable
 {
     use Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = [
         'name', 'email', 'password','role'
     ];
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
+
     protected $hidden = [
         'password', 'remember_token',
     ];
 
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
+
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
 
+
+    // Lo utilizamos para definir el tipo de usuario admin o empleado
     public function hasRoles($role){
         return $this->role === $role;
     }
+    //hacemos la relacion de usuario ya sea empleado o admin con el gymnasio
+    public function gyms(){ 
+        return $this->belongsToMany(Gym::class,'assigned_gyms');// metemos como segundo parametro la tabla pivote ya que laravel no la encuetra pues no esta definida como usualmente laravel la busca
+    }
+
+
 }

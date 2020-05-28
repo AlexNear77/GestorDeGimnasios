@@ -1,75 +1,92 @@
 
 
-   <nav>  
-      {{--                    Nombre del Gym sideBar         --}}
-     <a href="#0" class="text-center">
+   <nav>
+     {{--=============================================================--}}  
+      {{--                    Nombre del Gym sideBar                  --}}
+      {{--=============================================================--}}
+     <a class="text-decoration-none" href="#0" class="text-center">
       <h2 class="logo" alt="forecastr logo">MyGym</h2>
      </a>
-     {{--                       Boton oculto                  --}}
+     {{--=============================================================--}}
+     {{--                       Boton oculto                            --}}
+     {{--=============================================================--}}
      <button class="toggle-mob-menu" aria-expanded="false" aria-label="open menu">
        <svg width="20" height="20" aria-hidden="true">
          <use xlink:href="#down"></use>
        </svg>
      </button>
-     {{--                       seccion Admin                 --}}
+     {{--=============================================================--}}
+     {{--                       seccion Admin                         --}}
+     {{--=============================================================--}}
      <ul class="admin-menu">
        <li class="menu-heading">
          <h3>{{auth()->user()->role}}</h3>
        </li>
        <li>
-         {{--                       Inicio                  --}}
-         <a href="#0">
+         {{--=============================================================--}}
+         {{--                       Inicio                                 --}}
+         {{--=============================================================--}}
+         <a class="text-decoration-none" href="{{route('clientes.index')}}">
            <svg>
              <use xlink:href="#pages"></use>
            </svg>
            <span>Inicio</span>
          </a>
        </li>
-       {{--                       Clientes                  --}}
-       <li>
-         <a href="#0">
+       {{--=============================================================--}}
+       {{--                       Clientes                               --}}
+       {{--=============================================================--}}
+       {{-- <li>
+         <a class="text-decoration-none" href="#0">
            <svg>
              <use xlink:href="#users"></use>
            </svg>
            <span>Clientes</span>
          </a>
-       </li>
-       {{--                       Reportes                  --}}
+       </li> --}}
+       {{--=============================================================--}}
+       {{--                       Reportes                              --}}
+       {{--=============================================================--}}
        <li>
-         <a href="#0">
+         <a class="text-decoration-none" href="{{route('reportes.index')}}">
              <svg>
                <use xlink:href="#trends"></use>
              </svg>
              <span>Reportes</span>
            </a>
        </li>
-       {{--                       Productos                  --}}
+       {{--=============================================================--}}
+       {{--                       Productos                              --}}
+       {{--=============================================================--}}
        <li>
-         <a href="#0">
+         <a class="text-decoration-none" href="{{route('productos.index')}}">
            <svg>
              <use xlink:href="#collection"></use>
            </svg>
            <span>Productos</span>
          </a>
        </li>
-       @if (auth()->user()->hasRoles('admin'))
+       {{--=============================================================--}}
        {{--                      Seccion Congiguracioes                 --}}
+       {{--=============================================================--}}
 
        <li class="menu-heading">
          <h3>Configuraciones</h3>
        </li>
-       {{--                       Boton oculto                  --}}
+       {{--=============================================================--}}
+       {{--                     select Gymnasios                        --}}
+       {{--=============================================================--}}
        <li>
-         <a href="#0">
+         <a class="text-decoration-none" href="{{route('gyms.index')}}">
            <svg>
              <use xlink:href="#settings"></use>
            </svg>
            <span>Gymnasio</span>
          </a>
        </li>
-       
+       @if (auth()->user()->hasRoles('admin'))
        <li>
-         <a href="{{route('usuarios.index')}}">
+         <a  class="text-decoration-none" href="{{route('usuarios.index')}}">
            <svg>
              <use xlink:href="#options"></use>
            </svg>
@@ -78,7 +95,9 @@
        </li>
            
        @endif
-       {{--                       Boton oculto                  --}}
+       {{--=============================================================--}}
+       {{--                       Boton oculto                          --}}
+       {{--=============================================================--}}
        <li>
          <button id="colapsar" class="collapse-btn" aria-expanded="true" aria-label="collapse menu">
            <svg aria-hidden="true">

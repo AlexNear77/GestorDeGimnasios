@@ -59,6 +59,9 @@
                {{--                      Logout                             --}}
                @else {{-- En el caso de tener un usuario autenticado --}}
                   <li class="nav-item">
+                     <a class="nav-link {{ setActive('register')}}" href="{{ route('clientes.index')}}">Ir al gimnasio</a>
+                  </li>
+                  <li class="nav-item">
                      <a class="nav-link" href="#" onclick="event.preventDefault();
                      document.getElementById('logout-form').submit();">
                      @lang('Logout')</a>

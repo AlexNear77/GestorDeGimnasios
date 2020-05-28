@@ -4,14 +4,16 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Http\Requests\SaveUserRequest;
+use Illuminate\Support\Facades\Hash;
 
 class usuariosController extends Controller
 {
     //                  CONTRUCTOR
     public function __construct(){
-        $this->middleware(['auth','roles:admin']);
-        // $this->middleware('auth');
-        // $this->middleware('roles');
+        $this->middleware('auth');
+        $this->middleware('roles:admin',['except' => ['edit','update']]); // con esta ecepcion de decimos que ignore el metodo edit  para accedr ala cuenta mediante la opcion en el section llamdo Mi cuenta, es importante mencionar que aqui comenzamos a implementar las politicas de acceso de  laravel
+
     }
 
     public function index()
@@ -20,25 +22,37 @@ class usuariosController extends Controller
             'usuarios' => User::latest()->paginate()
         ]);
     }
-
  
     public function create()
     {
-        // return view('clientes.create', [// Ah esto se le conoce como route model Binding
-        //     'cliente' => new Cliente 
-        // ]);
+        return view('usuarios.create', [// Ah esto se le conoce como route model Binding
+            'user' => new User 
+        ]);
     }
 
 
-    public function store(ClienteProductoRequest $request)
+    public function store(Request $request)
     {
-        // Cliente::create($request->validated()); // esto para evitar inyecciones
+
+        $usuario = request()->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'role' => ['required', 'string', 'max:255']
+        ]);
+
+         User::create([
+            'name' => $usuario['name'],
+            'role' => $usuario['role'],
+            'email' => $usuario['email'],
+            'password' => Hash::make($usuario['password']),
+        ]);
         
-        // return redirect()->route('clientes.index')->with('status',__('Product was successfully added'));
+        return redirect()->route('usuarios.index')->with('status',__('Product was successfully added'));
     }
 
  
-    public function show(Cliente $cliente)
+    public function show(User $cliente)
     {
         // return view('clientes.show', [// Ah esto se le conoce como route model Binding
         //     'cliente' => $cliente//el 'product' Es el que recibe la ruta en web.php
@@ -46,26 +60,36 @@ class usuariosController extends Controller
     }
 
 
-    public function edit(Cliente $cliente)
+    public function edit(User $usuario)
     {
-        // $categorias = Categoria::all();
-        // return view('clientes.edit', [// Ah esto se le conoce como route model Binding
-        //     'cliente' => $cliente 
-        // ]);
+        $this->authorize($usuario);
+        return view('usuarios.edit', [// Ah esto se le conoce como route model Binding
+            'usuario' => $usuario 
+        ]);
     }
 
 
-    public function update(ClienteProductoRequest $request, Cliente $cliente)
+    public function update(Request $request, User $usuario)
     {
-        // $cliente->update($request->validated()); //Usamos la misma validacion de SaveProductoRequest
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,'.$usuario->id],
+            'role' => ['required']
+        ]);
 
-        // return redirect()->route('clientes.show', $cliente)->with('status',__('Updated successfully'));
+        $usuario->name = $request->name;
+        $usuario->email = $request->email;
+        $usuario->role = $request->role;
+
+        $usuario->save();
+
+        return back()->with('status',__('Updated successfully'));
     }
 
 
     public function destroy(Cliente $cliente)
     {
-        // $cliente->delete();
-        // return redirect()->route('clientes.index')->with('status',__('Deleted successfully'));
+        $cliente->delete();
+        return redirect()->route('clientes.index')->with('status',__('Deleted successfully'));
     }
 }
