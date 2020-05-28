@@ -40,13 +40,6 @@ Es pagina web para gestionar gimnasios, en la cual podemos tener el control de l
 - Se implemento a medios la Traduccion de texto
 -información adicional en tabla pivote // no funciona como deberia
 - Utilizamos MAILABLE y usamos una servicio web llamdo "Mailtrap" el cual para su correcto funcionamiento se debe implementar en env:
-MAIL_MAILER=smtp
-MAIL_HOST=smtp.mailtrap.io
-MAIL_PORT=2525
-MAIL_USERNAME=9ba1635cee8201
-MAIL_PASSWORD=5c0c1bc2eebd10
-MAIL_ENCRYPTION=null
-MAIL_FROM_ADDRESS=jonathan.gomez2943@alumnos.udg.mx
 
 
 
