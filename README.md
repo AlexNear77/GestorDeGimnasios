@@ -7,25 +7,52 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
 </p>
 
-## About Laravel
+## Acerca de la Aplicacion web MyGym
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Es pagina web para gestionar gimnasios, en la cual podemos tener el control de los clientes, productos en venta, reportes y tambien se puede incluir mas usuario ya sea de TIPO 'Administrador' ó 'Empleado' teniendo el segundo restricciones de acceso esta aplicacion:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+#Contiene:
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- Migrations
+- Seeders & Factories
+- Time Stamps
+- Login/logout, Sessions
+- Policies, Middleware
+- Todo formulario deberá ser validado en el lado del servidor.
+- Agregar validaciones en el cliente mediante html5 o js.
+- Implementar diseño responsivo mediante un framework de css (Bootsrap).
+- Reutilizar elementos comunes (layout, partial views).
+- Mostrar login/logout.
+- Mostrar errores de validación de formularios.
+- Mostrar mensajes de éxito al crear, editar o eliminar registros.
+- Navegación dentro de la aplicación (navbar, menu, breadcrumb).
+- Carga de recursos locales (css, js) sin utilizar rutas relativas (assset).
+- tablas y sus relaciones (Modelos).
+- Utilizar estas clases y métodos para consulta y almacenamiento de la información.
+- Resource Controller
+- Uno a muchos (1:m).
+- Muchos a muchos (m:n).
+- Eager loading // NO ESTOY SEGURO DE ESTE
+- Soft Deletes // NO ESTOY SEGURO DE ESTE
+- Scopes
+- Crear ruta que realice una consulta y cuya respuesta sea un json
+- Archivos 
+- Se implemento a medios la Traduccion de texto
+-información adicional en tabla pivote // no funciona como deberia
+- Utilizamos MAILABLE y usamos una servicio web llamdo "Mailtrap" el cual para su correcto funcionamiento se debe implementar en env:
+MAIL_MAILER=smtp
+MAIL_HOST=smtp.mailtrap.io
+MAIL_PORT=2525
+MAIL_USERNAME=9ba1635cee8201
+MAIL_PASSWORD=5c0c1bc2eebd10
+MAIL_ENCRYPTION=null
+MAIL_FROM_ADDRESS=jonathan.gomez2943@alumnos.udg.mx
 
-## Learning Laravel
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+
+
+
 
 ## Laravel Sponsors
 
