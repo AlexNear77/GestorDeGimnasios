@@ -16,8 +16,11 @@ class GymController extends Controller
   
     public function index()
     {
+        $id = auth()->user()->gymActivo_id;
+        $gym = Gym::find($id);
         return view('gyms.index', [
-            'gyms' => Gym::latest()->paginate()
+            'gyms' => Gym::latest()->paginate(),
+            'gym' => $gym
         ]);
     }
 
@@ -38,7 +41,13 @@ class GymController extends Controller
         $nombre = time().'.'.$image->getClientOriginalExtension();
         $destino = public_path('img/gyms');
         $gym->img->move($destino, $nombre);
+        $gym->img = $nombre;
+        $gym->save();
 
+        $id = auth()->user()->id;
+        $usuario = User::find($id);
+        $usuario->gymActivo_id = $gym->id; 
+        $usuario->save();
         //Gym::setImg($image);
 
 
@@ -49,8 +58,9 @@ class GymController extends Controller
     public function show(Gym $gym)
     {
         $id = auth()->user()->id; 
-        $usuario = User('users')->where('id', $id)->first();
-        $usuario->gymActivo_id = auth()->user()->gymActivo_id; 
+        $usuario = User::find($id);
+        $usuario->gymActivo_id = $gym->id; 
+        $usuario->save();
         return redirect()->route('gyms.index')->with('status','Gym seleccionado correctamente!');
     }
 
@@ -67,9 +77,25 @@ class GymController extends Controller
     public function update(SaveGymRequest $request, Gym $gym)
     {
         $req = Gym::create($request->validated()); // esto para evitar inyecciones
-        Gym::setImg($req->img,$gym->img);
-
+        //eliminadno archivo pasado
+        $file_path = public_path().'/img'.'/gyms'.$gym->img;
+        \File::detete($file_path);
+        
         $gym->update($request->validated()); //Usamos la misma validacion de SaveProductoRequest
+        
+        //Tratamiento de imagen
+        $image =$request->file('img');
+        $nombre = time().'.'.$image->getClientOriginalExtension();
+        $gym->img = $nombre;
+        $destino = public_path('img/gyms');
+        $image->move($destino, $nombre);
+        $gym->save();
+
+        //seleccionando gym
+        $id = auth()->user()->id;
+        $usuario = User::find($id);
+        $usuario->gymActivo_id = $gym->id; 
+        $usuario->save();
 
         return redirect()->route('gyms.index', $gym)->with('status',__('Updated successfully'));
     }
@@ -77,6 +103,8 @@ class GymController extends Controller
 
     public function destroy(Gym $gym)
     {
+        $file_path = public_path().'/img'.'/gyms'.$gym->img;
+        \File::detete($file_path);
         $gym->delete();
         return redirect()->route('gyms.index')->with('status',__('Deleted successfully'));
     }

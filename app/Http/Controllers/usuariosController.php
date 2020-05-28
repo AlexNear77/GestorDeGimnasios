@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Gym;
 use App\Http\Requests\SaveUserRequest;
 use Illuminate\Support\Facades\Hash;
 
@@ -41,12 +42,18 @@ class usuariosController extends Controller
             'role' => ['required', 'string', 'max:255']
         ]);
 
-         User::create([
+         $user =User::create([
             'name' => $usuario['name'],
             'role' => $usuario['role'],
             'email' => $usuario['email'],
             'password' => Hash::make($usuario['password']),
         ]);
+        //===============================================================
+        //                          Relacion
+        //----------------------------------------------------------------
+
+        $user->gymActivo_id = auth()->user()->gymActivo_id;
+        $user->save();
         
         return redirect()->route('usuarios.index')->with('status',__('Product was successfully added'));
     }
@@ -63,8 +70,10 @@ class usuariosController extends Controller
     public function edit(User $usuario)
     {
         $this->authorize($usuario);
+        $gyms = Gym::pluck('nombre','id');
         return view('usuarios.edit', [// Ah esto se le conoce como route model Binding
-            'usuario' => $usuario 
+            'usuario' => $usuario,
+            'gyms' => $gyms 
         ]);
     }
 
@@ -80,6 +89,7 @@ class usuariosController extends Controller
         $usuario->name = $request->name;
         $usuario->email = $request->email;
         $usuario->role = $request->role;
+        $usuario->gyms()->sync($request->gyms);
 
         $usuario->save();
 

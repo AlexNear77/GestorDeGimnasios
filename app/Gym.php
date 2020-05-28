@@ -43,7 +43,7 @@ class Gym extends Model
     //     Storage::disk('public')->put("img/gyms/$imageName",$imagen->stream());
     //     return $imageName;
     // }
-
+    
 
 }
 

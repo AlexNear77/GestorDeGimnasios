@@ -5,6 +5,21 @@
 @section('content')
 <div class="container-fluid p-4">
    <div class="row">
+     {{-- datos del gyjm activo --}}
+     <div class="col-md-12 mb-3">
+       <div class="card text-center mx-auto" style="width:18rem;">
+        <img src="img/gyms/{{$gym->img}}" 
+              alt="gimnasio activo" 
+              style="height:100px; width:100px"
+              class="card-img-top rounded-circle mx-auto d-block mt-2">
+        <div class="card-header">
+          <h5 class="card-title">{{$gym->nombre}}</h5>
+        </div>
+
+       </div>
+     </div>
+
+     {{-- Lista --}}
      <div class="col-md-12">
        <div class="card border-primary mb-3 card-plain">
          <div class="card-header card-header-primary text-white bg-primary mb-3">
@@ -30,9 +45,6 @@
                    ID
                  </th>
                  <th>
-                   Clave
-                 </th>
-                 <th>
                    Nombre
                  </th>
                  <th class="text-center">
@@ -52,13 +64,9 @@
                    <td>
                      {{ $gym->id}}
                    </td>
-                   {{--                      clave                     --}}
-                   <td>
-                     {{$gym->nombre}}
-                   </td>
                    {{--                      nombre                     --}}
                    <td>
-                     ${{$gym->key}}
+                     {{$gym->nombre}}
                    </td>
                    {{--                      Ubicacion                    --}}
                    <td class="text-center">

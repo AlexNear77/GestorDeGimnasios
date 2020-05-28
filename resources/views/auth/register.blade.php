@@ -29,9 +29,11 @@
                     </div>
                 </div>
                 {{--                            role                      --}}
-                <div class="form-group row">
+                {{-- Al registrase pro primera ves el gimnasio el usuario por default es                            admin                           --}}
+                <input type="hidden" name="role" value="admin">
+                {{-- <div class="form-group row">
                     <label for="role" class="col-md-4 col-form-label text-md-right">{{ __('Role') }}</label>
-
+ 
                     <div class="col-md-6">
                         <input id="role" type="text" class="form-control @error('role') is-invalid @enderror" name="role" value="{{ old('role') }}" required autocomplete="role" placeholder="Tipo de pila" autofocus>
 
@@ -41,7 +43,7 @@
                             </span>
                         @enderror
                     </div>
-                </div>
+                </div> --}}
                 {{--                       Correo                    --}}
                 <div class="form-group row">
                     <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>

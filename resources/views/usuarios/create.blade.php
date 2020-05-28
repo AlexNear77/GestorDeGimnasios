@@ -28,20 +28,37 @@
                         @enderror
                     </div>
                 </div>
+                {{--======================================================--}}
                 {{--                            role                      --}}
+                {{--======================================================--}}
+                @if (auth()->user()->role == 'admin')
+                    
                 <div class="form-group row">
-                    <label for="role" class="col-md-4 col-form-label text-md-right">{{ __('Role') }}</label>
+                    <label for="role" class="col-md-4 col-form-label text-md-right">{{ __('Type') }}</label>
 
-                    <div class="col-md-6">
-                        <input id="role" type="text" class="form-control @error('role') is-invalid @enderror" name="role" value="{{ old('role') }}" required autocomplete="role" placeholder="Tipo de pila" autofocus>
-
-                        @error('role')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
+                    <div class="col-sm-5">
+                        <select class="form-control mx-sm-3   @error('role') is-invalid @enderror"
+                                    name="role">
+                            <option value="admin" {{$user->role == 'admin' ? 'selected' : '' }}>
+                            Administrador
+                            </option>
+                            <option value="empleado" {{$user->role == 'empleado' ? 'selected' : '' }}>
+                                Empleado
+                            </option>
+                            @error('role')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </select>
+                    
                     </div>
+
                 </div>
+                @else
+                    <input type="hidden" name="role" value="empleado">
+
+                @endif   
                 {{--                       Correo                    --}}
                 <div class="form-group row">
                     <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>

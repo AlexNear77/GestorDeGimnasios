@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Route;
 //                Rutas Menu                                                          /
 //-----------------------------------------------------------------------------------
 Route::view('/', 'home')->name('home');
+Route::view('/mygym', 'mygym')->name('mygym');
 Route::view('/sobre-mi', 'about')->name('about'); 
 Route::get('/otros-proyectos','PortafolioController@index')->name('portafolio');
 //-----------------------------------------------
@@ -38,13 +39,6 @@ Route::resource('usuarios', 'usuariosController');
 //-----------------------------------------------------------------------------------
 Route::resource('productos', 'ProductosController');//->names('productos')->parameters(['producto' => 'product']);//esto es para cambiar el parametro pero en el controlador lo tengo como producto 
 
-//NOTA: es muy importante el orden de las rutas ya que si por ejemplo la ruta /productos/{producto} se encuentra arriba al intentar acceder a /productos/crear genera un error
-//Route::get('/productos', 'ProductosController@index')->name('productos.index');
-//Route::get('/productos/crear', 'ProductosController@create')->name('productos.create');
-//Route::get('/productos/{producto}/editar','ProductosController@edit')->name('productos.edit');
-//Route::patch('/productos/{producto}', 'ProductosController@update')->name('productos.update');
-//Route::post('/productos', 'ProductosController@store')->name('productos.store');
-//Route::get('/productos/{producto}', 'ProductosController@show')->name('productos.show');
-//Route::delete('/productos/{producto}','ProductosController@destroy')->name('productos.destroy');
+
 
 Auth::routes();//Auth::routes(['register' => false]); //['register' => false] //es para que no se pueda acceder a esa ruta

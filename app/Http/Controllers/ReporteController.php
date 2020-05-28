@@ -39,7 +39,9 @@ class ReporteController extends Controller
         
         // $convertPrecio = (int)$fields['precio'];
         // $pago = $fields['cantidad']*$convertPrecio;
-        
+        //===============================================================
+        //                          REPORTE
+        //----------------------------------------------------------------
         $reporte = new Reporte();
         $reporte->nombre = $fields['producto'];
         $reporte->pago = $fields['monto'];

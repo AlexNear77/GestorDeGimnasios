@@ -43,13 +43,9 @@ class ProductosController extends Controller
 
     public function store(SaveProductoRequest $request) // Cree un Forme request Validation para hacer las validaciociones de manera externa, la validacion se encuentra en Http/Request/SaveProductoRequest es otra forma de validar peticiones lo utilzo para parcticar y porque me ayuda a reutilizar codigo ya que lo uso aqui y en update
     {
-        // $fields = request()->validate([
-        //     'category' => 'required',
-        //     'description' => 'required',
-        //     'stock' => 'required',
-        //     'buy' => 'required',
-        //     'sale' => 'required'
-        // ]);
+        //===============================================================
+        //                          REPORTE
+        //----------------------------------------------------------------
         
         $producto = Producto::create($request->validated()); // esto para evitar inyecciones
         $producto->gym_id = auth()->user()->gymActivo_id;// le agregamos el gym id activo

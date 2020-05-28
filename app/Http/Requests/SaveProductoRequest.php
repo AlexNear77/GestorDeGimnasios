@@ -19,9 +19,9 @@ class SaveProductoRequest extends FormRequest
         return [
             'category_id' => 'required|string',
             'description' => 'required|string',
-            'stock' => 'required',
-            'buy' => 'required',
-            'sale' => 'required'
+            'stock' => 'required|integer',
+            'buy' => 'required|integer',
+            'sale' => 'required|integer'
         ];
     }
 }

@@ -15,7 +15,7 @@ class CreateGymsTable extends Migration
     {
         Schema::create('gyms', function (Blueprint $table) {
             $table->id();
-            $table->string('key')->unique();
+            $table->string('key')->nullable();
             $table->string('nombre');
             $table->text('img');
             $table->string('ubicacion')->nullable();

@@ -32,12 +32,7 @@
                <li class="nav-item">
                   <a class="nav-link {{ setActive('portafolio')}}" href="{{route('portafolio')}}">@lang('Portfolio')</a>
                </li>
-         
-               {{--                              Productos                                --}}
-               {{-- Nota: el ('productos.*')  se coloca para que se mantenga activado en las subrutas de todas las rutas que le pertenezca a productos--}}
-               <li class="nav-item">
-                  <a class="nav-link {{ setActive('productos.*')}}" href="{{route('productos.index')}}">@lang('Products')</a>
-               </li>
+      
          
                {{--                                Contacto                                --}}
                <li class="nav-item">
@@ -53,7 +48,7 @@
                      <a class="nav-link {{ setActive('login')}}" href="{{route('login')}}">@lang('Login')</a>
                   </li>
                   <li class="nav-item">
-                     <a class="nav-link {{ setActive('register')}}" href="{{ route('register')}}">@lang('Register')</a>
+                     <a class="nav-link {{ setActive('register')}}" href="{{ route('register')}}">Registrate!</a>
                   </li>
          
                {{--                      Logout                             --}}

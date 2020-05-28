@@ -1,15 +1,6 @@
 @csrf
-{{--                    Nombre del CLIENTE      --}}
-<div class="form-group">
-   <label for="key">Clave</label>
-      <input type="text" 
-            class="form-control bg-light shadow-sm border-0 " 
-            name="key" 
-            placeholder="Nombre corto sin espacios"
-            value="{{old('key',$gym->key)}}" required>
-   
-</div>
-{{--                    Nombre del CLIENTE      --}}
+
+{{--                    Nombre del gym      --}}
 <div class="form-group">
    <label for="nombre">Nombre</label>
       <input type="text" 

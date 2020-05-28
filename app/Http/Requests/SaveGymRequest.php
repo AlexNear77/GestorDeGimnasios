@@ -20,7 +20,6 @@ class SaveGymRequest extends FormRequest
     {
         return [
             'nombre' => ['required', 'string', 'max:255'],
-            'key' => ['required', 'string', 'max:255', 'unique:gyms'],
             'ubicacion' => ['required', 'string', 'max:255'],
             'img' => ['required', 'image','mimes:jpg,jpeg,png,svg','max:2048']
         ];

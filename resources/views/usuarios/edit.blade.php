@@ -78,25 +78,12 @@
 
                 </div>
                 @else
-     
-                    <div class="invisible">
-                        <select  class="   @error('role') is-invalid @enderror"
-                                    name="role">
-                            <option value="admin" {{$usuario->role == 'admin' ? 'selected' : '' }}>
-                            Administrador
-                            </option>
-                            <option value="empleado" {{$usuario->role == 'empleado' ? 'selected' : '' }}>
-                                Empleado
-                            </option>
-                            @error('role')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </select>
-                    
-                    </div>
-                @endif               
+                    <input type="hidden" name="role" value="empleado">
+
+                @endif   
+                
+                
+
                 
                 <div class="form-group row mb-0">
                     <div class="col-md-6 offset-md-4">
